@@ -94,3 +94,16 @@ export default {
   text-align: right;
 }
 </style>
+
+<script>
+beforeRouteEnter(route, routeFrom,next){
+    EventService.getEvents(2,this.page)
+    .then((response) =>{
+        this.events = response.data
+        this.totalEvents = response.headers['x-total-count']
+    })
+    .catch(()=>{
+        this.$route.push({ name: 'NetworkError'})
+    })
+}
+</script>
